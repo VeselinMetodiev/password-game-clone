@@ -1,0 +1,57 @@
+.stunning-box {
+    width: 500px; /* Set the desired width */
+    height: 100px; /* Set the desired height */
+    margin: 20px;
+    border-radius: 15px; /* Add rounded corners */
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: white; /* Text color */
+    font-size: 18px; /* Text size */
+    font-weight: bold; /* Text weight */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    transition: transform 0.2s ease-in-out; /* Add a hover effect */
+    transition: background-color .7s ease-in-out;
+  }
+
+  .stunning-box.blue {
+    background-color: #3498db; /* Set the background color */
+    border-color: blue;
+  }
+
+  .stunning-box.blue .top {
+    background-color: #aef3ae;; /* Set the background color */
+  }
+
+  .stunning-box.red {
+    background-color: #ffc7c7;
+    border-color: red;
+  }
+  
+  .stunning-box:hover {
+    transform: scale(1.05); /* Scale up on hover for a stunning effect */
+  }
+
+  .top {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background-color: #e74c3c; /* Background color of the top span */
+    border-top-left-radius: 10px; /* Match the top-left border radius of the rectangle */
+    border-top-right-radius: 10px; /* Match the top-right border radius of the rectangle */
+    text-align: left;
+    transition: background-color .7s ease-in-out;
+    display: flex;
+    align-items: center;
+  }
+
+.icon {
+    font-size: 24px; /* Adjust the size of the icon as needed */
+    margin-right: 8px; /* Add spacing between the icon and text */
+    margin-left: 8px;
+}
