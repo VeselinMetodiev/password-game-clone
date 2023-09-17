@@ -1,6 +1,13 @@
 import './RuleBox.css'
 import { FaCheck, FaTimesCircle } from "react-icons/fa";
-const RuleBox = ({text, isVisible, isChecked, number}) => {
+import { useEffect, useState } from 'react'
+const RuleBox = ({text, isChecked, number}) => {
+
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+       isChecked && setIsVisible(true);
+    }, [isChecked]);
 
     const getColorClass = () => {
         if (isChecked) {
