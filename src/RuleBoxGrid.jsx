@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react'
 import { containsNumbers, containsSpecialCharacter } from './rulesUtil'
 
 const RuleBoxGrid = ({password}) => {
+    const ruleOne = password.length >= 5;
+    const ruleTwo = containsNumbers(password) && ruleOne
+    const ruleThree = containsSpecialCharacter(password) && ruleTwo
     const hasPassedRuleNumber = [
-        password.length >= 5,
-        containsNumbers(password),
-        containsSpecialCharacter(password)
+        ruleOne,
+        ruleTwo,
+        ruleThree
       ]
 
     const initialRules = [
@@ -33,6 +36,7 @@ const RuleBoxGrid = ({password}) => {
           const rulesCopy = [...initialRules];
           rulesCopy.sort(rulesSort);
           setRules(rulesCopy);
+          console.log(initialRules)
        }, [password]); 
 
 // Custom sorting function
