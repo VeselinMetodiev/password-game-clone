@@ -1,15 +1,19 @@
 import RuleBox from './RuleBox.jsx'
 import { useEffect, useState } from 'react'
-import { containsNumbers, containsSpecialCharacter } from './rulesUtil'
+import { containsNumbers, containsSpecialCharacter, containsUppercase, digitsAddTo25 } from './rulesUtil'
 
 const RuleBoxGrid = ({password}) => {
     const ruleOne = password.length >= 5;
     const ruleTwo = containsNumbers(password) && ruleOne
-    const ruleThree = containsSpecialCharacter(password) && ruleTwo
+    const ruleThree = containsUppercase(password) && ruleTwo
+    const ruleFour = containsSpecialCharacter(password) && ruleThree
+    const ruleFive =  digitsAddTo25(password) && ruleFour
     const hasPassedRuleNumber = [
         ruleOne,
         ruleTwo,
-        ruleThree
+        ruleThree,
+        ruleFour,
+        ruleFive
       ]
 
     const initialRules = [
@@ -25,8 +29,18 @@ const RuleBoxGrid = ({password}) => {
         },
         {
             isChecked: hasPassedRuleNumber[2],
-            text: "Password should contain a special character",
+            text: "Password should contain a uppercase letter.",
             number: 3
+        },
+        {
+            isChecked: hasPassedRuleNumber[3],
+            text: "Password should contain a special character",
+            number: 4
+        },
+        {
+            isChecked: hasPassedRuleNumber[4],
+            text: " The digits in your password must add up to 25.",
+            number: 5
         },
       ];
 
