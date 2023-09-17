@@ -1,43 +1,51 @@
 import RuleBox from './RuleBox.jsx'
+import { useEffect, useState } from 'react'
+import { containsNumbers, containsSpecialCharacter } from './rulesUtil'
 
 const RuleBoxGrid = ({password}) => {
-    const containsNumbers = (str) => {
-        return /\d/.test(str);
-      }
-  
-      const containsSpecialCharacter = (inputString) => {
-        // Define a regular expression pattern to match special characters
-        const regex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
-      
-        // Use the test method to check if the inputString contains any special character
-        return regex.test(inputString);
-      }
-
-      const hasPassedRuleNumber = [
+    const hasPassedRuleNumber = [
         password.length >= 5,
         containsNumbers(password),
         containsSpecialCharacter(password)
       ]
 
-      const rules = [
+    const initialRules = [
         {
-            isChecked: false,
-            text: "Password should include at least 5 symbols."
+            isChecked: hasPassedRuleNumber[0],
+            text: "Password should include at least 5 symbols.",
+            number: 1
         },
         {
-            isChecked: false,
-            text: "Password should have a number."
+            isChecked: hasPassedRuleNumber[1],
+            text: "Password should have a number.",
+            number: 2
         },
         {
-            isChecked: false,
-            text: "Password should contain a special character"
+            isChecked: hasPassedRuleNumber[2],
+            text: "Password should contain a special character",
+            number: 3
         },
       ];
 
+    const [rules, setRules] = useState(initialRules);
+
+      useEffect(() => {
+          const rulesCopy = [...initialRules];
+          rulesCopy.sort(rulesSort);
+          setRules(rulesCopy);
+       }, [password]); 
+
+// Custom sorting function
+function rulesSort(a, b) {
+    if (a.isChecked === false && b.isChecked === true) return -1;
+    if (a.isChecked === true && b.isChecked === false) return 1;
+    return 0; // Objects are equal or both have the same isChecked value
+  }
+
     return (
-       rules.map((rule, index) => {
+       rules.map((rule) => {
         return (
-            <RuleBox text={rule.text} number={index+1} isChecked={hasPassedRuleNumber[index]}/>
+            <RuleBox key={rule.number-1} text={rule.text} number={rule.number} isChecked={hasPassedRuleNumber[rule.number-1]}/>
         )
        })
     );
