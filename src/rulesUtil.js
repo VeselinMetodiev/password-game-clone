@@ -21,7 +21,6 @@ export function digitsAddTo25(password) {
       sum += Number(password[i]);
     }
   }
-  console.log({ sum });
   return sum === 25;
 }
 

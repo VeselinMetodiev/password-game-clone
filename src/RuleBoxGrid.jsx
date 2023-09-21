@@ -30,6 +30,7 @@ const RuleBoxGrid = ({ password }) => {
       isChecked: hasPassedRuleNumber[index],
       text: rule,
       number: index + 1,
+      isVisible: index == 0 ? true : hasPassedRuleNumber[index - 1],
     };
   });
 
@@ -39,7 +40,6 @@ const RuleBoxGrid = ({ password }) => {
     const rulesCopy = [...initialRules];
     rulesCopy.sort(rulesSort);
     setRules(rulesCopy);
-    console.log(initialRules);
   }, [password]);
 
   // Custom sorting function
@@ -56,6 +56,7 @@ const RuleBoxGrid = ({ password }) => {
         text={rule.text}
         number={rule.number}
         isChecked={hasPassedRuleNumber[rule.number - 1]}
+        isVisible={rule.isVisible}
       />
     );
   });
