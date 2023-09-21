@@ -5,6 +5,7 @@ import {
   containsSpecialCharacter,
   containsUppercase,
   digitsAddTo25,
+  containsMonthOfYear,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 
@@ -14,7 +15,15 @@ const RuleBoxGrid = ({ password }) => {
   const ruleThree = containsUppercase(password) && ruleTwo;
   const ruleFour = containsSpecialCharacter(password) && ruleThree;
   const ruleFive = digitsAddTo25(password) && ruleFour;
-  const hasPassedRuleNumber = [ruleOne, ruleTwo, ruleThree, ruleFour, ruleFive];
+  const ruleSix = containsMonthOfYear(password) && ruleFive;
+  const hasPassedRuleNumber = [
+    ruleOne,
+    ruleTwo,
+    ruleThree,
+    ruleFour,
+    ruleFive,
+    ruleSix,
+  ];
 
   const initialRules = rulesText.map((rule, index) => {
     return {
