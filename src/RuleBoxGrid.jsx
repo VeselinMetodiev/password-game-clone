@@ -6,6 +6,7 @@ import {
   containsUppercase,
   digitsAddTo25,
   containsMonthOfYear,
+  containsRomanNumeral,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 
@@ -16,6 +17,7 @@ const RuleBoxGrid = ({ password }) => {
   const ruleFour = containsSpecialCharacter(password) && ruleThree;
   const ruleFive = digitsAddTo25(password) && ruleFour;
   const ruleSix = containsMonthOfYear(password) && ruleFive;
+  const ruleSeven = ruleSix && containsRomanNumeral(password);
   const hasPassedRuleNumber = [
     ruleOne,
     ruleTwo,
@@ -23,6 +25,7 @@ const RuleBoxGrid = ({ password }) => {
     ruleFour,
     ruleFive,
     ruleSix,
+    ruleSeven,
   ];
 
   const initialRules = rulesText.map((rule, index) => {

@@ -47,3 +47,12 @@ export const containsMonthOfYear = (inputString) => {
   // Test if the inputString contains any of the month names
   return pattern.test(inputString);
 };
+
+export const containsRomanNumeral = (inputString) => {
+  // Define a regular expression to match Roman numerals
+  const romanNumeralRegex =
+    /M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})/;
+
+  // Use the test method to check if the inputString contains a Roman numeral
+  return romanNumeralRegex.test(inputString);
+};
