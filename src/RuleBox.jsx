@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
 import "./RuleBox.css";
 import { FaCheck, FaTimesCircle } from "react-icons/fa";
 const RuleBox = ({ text, isChecked, number, isVisible }) => {
+  const [visible, setVisible] = useState(false);
+
   const getColorClass = () => {
     if (isChecked) {
       return "stunning-box blue";
@@ -9,7 +12,14 @@ const RuleBox = ({ text, isChecked, number, isVisible }) => {
     }
   };
 
-  return isVisible ? (
+  // If once revealed, the rule must stay visible till the end
+  useEffect(() => {
+    if (isVisible && !visible) {
+      setVisible(true);
+    }
+  }, [isVisible]);
+
+  return visible ? (
     <div className={getColorClass()}>
       <span className="top">
         {isChecked ? (
