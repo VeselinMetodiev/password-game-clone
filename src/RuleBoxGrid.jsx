@@ -8,6 +8,7 @@ import {
   containsMonthOfYear,
   containsRomanNumeral,
   containsOneSponsor,
+  checkRomanNumeralsMultiplyTo35,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 
@@ -20,6 +21,7 @@ const RuleBoxGrid = ({ password }) => {
   const ruleSix = containsMonthOfYear(password) && ruleFive;
   const ruleSeven = ruleSix && containsRomanNumeral(password);
   const ruleEight = ruleSeven && containsOneSponsor(password);
+  const ruleNine = ruleEight && checkRomanNumeralsMultiplyTo35(password);
   const hasPassedRuleNumber = [
     ruleOne,
     ruleTwo,
@@ -29,6 +31,7 @@ const RuleBoxGrid = ({ password }) => {
     ruleSix,
     ruleSeven,
     ruleEight,
+    ruleNine,
   ];
 
   const assignExtraContent = (index) => {

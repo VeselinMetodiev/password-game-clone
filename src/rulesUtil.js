@@ -64,3 +64,47 @@ export const containsOneSponsor = (inputString) => {
   // Use the test method to check if the inputString contains a Roman numeral
   return pattern.test(inputString.toLowerCase());
 };
+
+function romanToDecimal(roman) {
+  const romanNumerals = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+  };
+
+  let total = 0;
+
+  for (let i = 0; i < roman.length; i++) {
+    if (
+      i < roman.length - 1 &&
+      romanNumerals[roman[i]] < romanNumerals[roman[i + 1]]
+    ) {
+      total -= romanNumerals[roman[i]];
+    } else {
+      total += romanNumerals[roman[i]];
+    }
+  }
+
+  return total;
+}
+
+export function checkRomanNumeralsMultiplyTo35(inputString) {
+  const romanNumeralMatches = inputString.match(/[IVXLCDM]+/g);
+
+  if (!romanNumeralMatches) {
+    return "No Roman numerals found in the input string.";
+  }
+
+  let product = 1;
+
+  for (const romanNumeral of romanNumeralMatches) {
+    const decimalValue = romanToDecimal(romanNumeral);
+    product *= decimalValue;
+  }
+
+  return product === 35;
+}
