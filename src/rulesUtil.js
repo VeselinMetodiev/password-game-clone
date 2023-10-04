@@ -96,7 +96,7 @@ export function checkRomanNumeralsMultiplyTo35(inputString) {
   const romanNumeralMatches = inputString.match(/[IVXLCDM]+/g);
 
   if (!romanNumeralMatches) {
-    return "No Roman numerals found in the input string.";
+    return false;
   }
 
   let product = 1;
