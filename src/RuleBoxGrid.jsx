@@ -7,6 +7,7 @@ import {
   digitsAddTo25,
   containsMonthOfYear,
   containsRomanNumeral,
+  containsOneSponsor,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 
@@ -18,6 +19,7 @@ const RuleBoxGrid = ({ password }) => {
   const ruleFive = digitsAddTo25(password) && ruleFour;
   const ruleSix = containsMonthOfYear(password) && ruleFive;
   const ruleSeven = ruleSix && containsRomanNumeral(password);
+  const ruleEight = ruleSeven && containsOneSponsor(password);
   const hasPassedRuleNumber = [
     ruleOne,
     ruleTwo,
@@ -26,7 +28,23 @@ const RuleBoxGrid = ({ password }) => {
     ruleFive,
     ruleSix,
     ruleSeven,
+    ruleEight,
   ];
+
+  const assignExtraContent = (index) => {
+    switch (index) {
+      case 7:
+        return (
+          <>
+            <div class="logo-container">
+              <img src="src/img/pepsi-logo.png" alt="Pepsi Logo" />
+              <img src="src/img/starbucks-logo.png" alt="Starbucks Logo" />
+              <img src="src/img/mcdonalds-logo.png" alt="McDonald's Logo" />
+            </div>
+          </>
+        );
+    }
+  };
 
   const initialRules = rulesText.map((rule, index) => {
     return {
@@ -34,6 +52,7 @@ const RuleBoxGrid = ({ password }) => {
       text: rule,
       number: index + 1,
       isVisible: index == 0 ? true : hasPassedRuleNumber[index - 1],
+      extraContent: assignExtraContent(index),
     };
   });
 
@@ -60,6 +79,7 @@ const RuleBoxGrid = ({ password }) => {
         number={rule.number}
         isChecked={hasPassedRuleNumber[rule.number - 1]}
         isVisible={rule.isVisible}
+        extraContent={rule.extraContent}
       />
     );
   });

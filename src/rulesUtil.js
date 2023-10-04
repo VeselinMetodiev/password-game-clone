@@ -56,3 +56,11 @@ export const containsRomanNumeral = (inputString) => {
   // Use the test method to check if the inputString contains a Roman numeral
   return romanNumeralRegex.test(inputString);
 };
+
+export const containsOneSponsor = (inputString) => {
+  // Define a regular expression to match Roman numerals
+  const pattern = /\b(pepsi|mcdonalds|starbucks)\b/i; // i flag for case-insensitivity
+
+  // Use the test method to check if the inputString contains a Roman numeral
+  return pattern.test(inputString.toLowerCase());
+};

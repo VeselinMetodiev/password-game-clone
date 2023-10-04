@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <h2>* The Password Clone Game </h2>
+      <h2>* The Password Game Clone </h2>
       <div className="app">
         <PasswordInput passwordHasChanged={handlePasswordChanged} />
       </div>

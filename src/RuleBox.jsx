@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./RuleBox.css";
 import { FaCheck, FaTimesCircle } from "react-icons/fa";
-const RuleBox = ({ text, isChecked, number, isVisible }) => {
+const RuleBox = ({ text, isChecked, number, isVisible, extraContent }) => {
   const [visible, setVisible] = useState(false);
 
   const getColorClass = () => {
@@ -30,6 +30,7 @@ const RuleBox = ({ text, isChecked, number, isVisible }) => {
         Rule {number}
       </span>
       <p className="text">{text}</p>
+      {extraContent && <div className="extra-content">{extraContent}</div>}
     </div>
   ) : null;
 };
