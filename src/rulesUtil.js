@@ -108,3 +108,7 @@ export function checkRomanNumeralsMultiplyTo35(inputString) {
 
   return product === 35;
 }
+
+export function checkHasCaptcha(password, captcha) {
+  return password.includes(captcha);
+}

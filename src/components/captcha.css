@@ -10,21 +10,28 @@
   user-select: none;
 }
 
-/* Style the "Generate CAPTCHA" button */
-button {
-  background-color: #007bff;
+/* Style for the button */
+.captcha-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3498db;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  font-size: 18px;
+  border-radius: 4px;
   cursor: pointer;
-  border-radius: 5px;
-  margin-top: 10px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
 }
 
-/* Hover effect for the button */
-button:hover {
-  background-color: #0056b3;
+.captcha-button:hover {
+  background-color: #2980b9;
+}
+
+/* Style for the icon */
+.icon {
+  font-size: 20px;
+  margin-right: 5px; /* Spacing between the icon and text */
 }
 
 /* Center the CAPTCHA and button in the viewport */

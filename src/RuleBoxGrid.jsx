@@ -9,10 +9,14 @@ import {
   containsRomanNumeral,
   containsOneSponsor,
   checkRomanNumeralsMultiplyTo35,
+  checkHasCaptcha,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
+import CaptchaGenerator from "./components/CaptchaGenerator";
 
 const RuleBoxGrid = ({ password }) => {
+  const [captcha, setCaptcha] = useState("");
+
   const ruleOne = password.length >= 5;
   const ruleTwo = containsNumbers(password) && ruleOne;
   const ruleThree = containsUppercase(password) && ruleTwo;
@@ -22,6 +26,7 @@ const RuleBoxGrid = ({ password }) => {
   const ruleSeven = ruleSix && containsRomanNumeral(password);
   const ruleEight = ruleSeven && containsOneSponsor(password);
   const ruleNine = ruleEight && checkRomanNumeralsMultiplyTo35(password);
+  const ruleTen = ruleNine && checkHasCaptcha(password, captcha);
   const hasPassedRuleNumber = [
     ruleOne,
     ruleTwo,
@@ -32,7 +37,12 @@ const RuleBoxGrid = ({ password }) => {
     ruleSeven,
     ruleEight,
     ruleNine,
+    ruleTen,
   ];
+
+  const captchaHasChanged = (newCaptcha) => {
+    setCaptcha(newCaptcha);
+  };
 
   const assignExtraContent = (index) => {
     switch (index) {
@@ -46,6 +56,8 @@ const RuleBoxGrid = ({ password }) => {
             </div>
           </>
         );
+      case 9:
+        return <CaptchaGenerator captchaHasChanged={captchaHasChanged} />;
     }
   };
 

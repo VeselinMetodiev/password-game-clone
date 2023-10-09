@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./captcha.css";
 
-const CaptchaGenerator = () => {
-  const [captchaText, setCaptchaText] = useState("");
+const CaptchaGenerator = ({ captchaHasChanged }) => {
+  const [captchaText, setCaptcha] = useState("");
 
   const generateCaptcha = () => {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -11,13 +11,20 @@ const CaptchaGenerator = () => {
       const randomIndex = Math.floor(Math.random() * characters.length);
       captcha += characters[randomIndex];
     }
-    setCaptchaText(captcha);
+    setCaptcha(captcha.toLowerCase());
+    captchaHasChanged(captcha.toLowerCase());
   };
+
+  useEffect(() => {
+    generateCaptcha();
+  }, []);
 
   return (
     <div>
-      <h2>Custom CAPTCHA Generator</h2>
-      <button onClick={generateCaptcha}>Generate CAPTCHA</button>
+      <button class="captcha-button" onClick={generateCaptcha}>
+        <span class="icon">&#x21BB;</span>
+        New Captcha
+      </button>
       <div className="captcha">{captchaText}</div>
     </div>
   );
