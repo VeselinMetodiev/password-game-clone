@@ -16,17 +16,18 @@ import CaptchaGenerator from "./components/CaptchaGenerator";
 
 const RuleBoxGrid = ({ password }) => {
   const [captcha, setCaptcha] = useState("");
+  const [rules, setRules] = useState([]);
 
   const ruleOne = password.length >= 5;
-  const ruleTwo = containsNumbers(password) && ruleOne;
-  const ruleThree = containsUppercase(password) && ruleTwo;
-  const ruleFour = containsSpecialCharacter(password) && ruleThree;
-  const ruleFive = digitsAddTo25(password) && ruleFour;
-  const ruleSix = containsMonthOfYear(password) && ruleFive;
-  const ruleSeven = ruleSix && containsRomanNumeral(password);
-  const ruleEight = ruleSeven && containsOneSponsor(password);
-  const ruleNine = ruleEight && checkRomanNumeralsMultiplyTo35(password);
-  const ruleTen = ruleNine && checkHasCaptcha(password, captcha);
+  const ruleTwo = containsNumbers(password);
+  const ruleThree = containsUppercase(password);
+  const ruleFour = containsSpecialCharacter(password);
+  const ruleFive = digitsAddTo25(password);
+  const ruleSix = containsMonthOfYear(password);
+  const ruleSeven = containsRomanNumeral(password);
+  const ruleEight = containsOneSponsor(password);
+  const ruleNine = checkRomanNumeralsMultiplyTo35(password);
+  const ruleTen = checkHasCaptcha(password, captcha);
   const hasPassedRuleNumber = [
     ruleOne,
     ruleTwo,
@@ -66,12 +67,10 @@ const RuleBoxGrid = ({ password }) => {
       isChecked: hasPassedRuleNumber[index],
       text: rule,
       number: index + 1,
-      isVisible: index == 0 ? true : hasPassedRuleNumber[index - 1],
+      isVisible: index == 0 ? true : rules[index + 1]?.isVisible,
       extraContent: assignExtraContent(index),
     };
   });
-
-  const [rules, setRules] = useState(initialRules);
 
   useEffect(() => {
     const rulesCopy = [...initialRules];
