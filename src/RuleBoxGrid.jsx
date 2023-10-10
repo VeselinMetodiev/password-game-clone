@@ -14,9 +14,17 @@ import {
 import { rulesText } from "./rules.js";
 import CaptchaGenerator from "./components/CaptchaGenerator";
 
+const initialRules = rulesText.map((rule, index) => {
+  return {
+    isChecked: false,
+    text: rule,
+    number: index + 1,
+  };
+});
+
 const RuleBoxGrid = ({ password }) => {
   const [captcha, setCaptcha] = useState("");
-  const [rules, setRules] = useState([]);
+  const [rules, setRules] = useState([initialRules[0]]);
 
   const ruleOne = password.length >= 5;
   const ruleTwo = containsNumbers(password);
@@ -58,24 +66,35 @@ const RuleBoxGrid = ({ password }) => {
           </>
         );
       case 9:
-        return <CaptchaGenerator captchaHasChanged={captchaHasChanged} />;
+        return (
+          <>
+            <CaptchaGenerator captchaHasChanged={captchaHasChanged} />
+          </>
+        );
+      default:
+        return null; // Return null or an empty React fragment for other cases
     }
   };
 
-  const initialRules = rulesText.map((rule, index) => {
-    return {
-      isChecked: hasPassedRuleNumber[index],
-      text: rule,
-      number: index + 1,
-      isVisible: index == 0 ? true : rules[index + 1]?.isVisible,
-      extraContent: assignExtraContent(index),
-    };
-  });
-
   useEffect(() => {
-    const rulesCopy = [...initialRules];
+    const newRules = rules.map((rule, index) => {
+      return {
+        isChecked: hasPassedRuleNumber[index],
+        text: rule.text,
+        number: rule.number,
+        extraContent: assignExtraContent(index),
+      };
+    });
+    if (newRules[rules.length - 1].isChecked) {
+      newRules.push(initialRules[newRules.length]);
+      console.log("push new rule: " + newRules);
+    }
+    const rulesCopy = [...newRules];
     rulesCopy.sort(rulesSort);
-    setRules(rulesCopy);
+    if (Array.isArray(rulesCopy)) {
+      console.log(JSON.stringify(rulesCopy));
+      setRules(rulesCopy);
+    }
   }, [password]);
 
   // Custom sorting function
@@ -85,6 +104,8 @@ const RuleBoxGrid = ({ password }) => {
     return 0; // Objects are equal or both have the same isChecked value
   }
 
+  // console.log(rules);
+
   return rules.map((rule) => {
     return (
       <RuleBox
@@ -92,7 +113,7 @@ const RuleBoxGrid = ({ password }) => {
         text={rule.text}
         number={rule.number}
         isChecked={hasPassedRuleNumber[rule.number - 1]}
-        isVisible={rule.isVisible}
+        // isVisible={rule.isVisible}
         extraContent={rule.extraContent}
       />
     );

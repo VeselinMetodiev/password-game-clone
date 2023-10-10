@@ -54,7 +54,7 @@ export const containsRomanNumeral = (inputString) => {
     /M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})/;
 
   // Use the test method to check if the inputString contains a Roman numeral
-  return romanNumeralRegex.test(inputString);
+  return inputString.length > 0 && romanNumeralRegex.test(inputString);
 };
 
 export const containsOneSponsor = (inputString) => {
@@ -110,5 +110,5 @@ export function checkRomanNumeralsMultiplyTo35(inputString) {
 }
 
 export function checkHasCaptcha(password, captcha) {
-  return password.includes(captcha);
+  return captcha.length > 0 && password.includes(captcha);
 }
