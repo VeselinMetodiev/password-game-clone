@@ -85,13 +85,13 @@ const RuleBoxGrid = ({ password }) => {
   };
 
   useEffect(() => {
-    const newRules = rules.map((rule, index) => {
+    const newRules = rules.map((rule) => {
       return {
-        isChecked: hasPassedRuleNumber[index],
+        isChecked: hasPassedRuleNumber[rule.number],
         text: rule.text,
         number: rule.number,
         isVisible: rule.isVisible,
-        extraContent: assignExtraContent(index),
+        extraContent: assignExtraContent(rule.number),
       };
     });
     const rulesCopy = [...newRules];
