@@ -19,12 +19,13 @@ const initialRules = rulesText.map((rule, index) => {
     isChecked: false,
     text: rule,
     number: index + 1,
+    isVisible: index === 0 ? true : false,
   };
 });
 
 const RuleBoxGrid = ({ password }) => {
   const [captcha, setCaptcha] = useState("");
-  const [rules, setRules] = useState([initialRules[0]]);
+  const [rules, setRules] = useState(initialRules);
 
   const ruleOne = password.length >= 5;
   const ruleTwo = containsNumbers(password);
@@ -58,7 +59,7 @@ const RuleBoxGrid = ({ password }) => {
       case 7:
         return (
           <>
-            <div class="logo-container">
+            <div className="logo-container">
               <img src="src/img/pepsi-logo.png" alt="Pepsi Logo" />
               <img src="src/img/starbucks-logo.png" alt="Starbucks Logo" />
               <img src="src/img/mcdonalds-logo.png" alt="McDonald's Logo" />
@@ -76,19 +77,23 @@ const RuleBoxGrid = ({ password }) => {
     }
   };
 
+  const pushNewRule = (newRules) => {
+    if (newRules[rules.length - 1].isChecked) {
+      newRules.push(initialRules[newRules.length]);
+      console.log("push new rule: " + newRules);
+    }
+  };
+
   useEffect(() => {
     const newRules = rules.map((rule, index) => {
       return {
         isChecked: hasPassedRuleNumber[index],
         text: rule.text,
         number: rule.number,
+        isVisible: rule.isVisible,
         extraContent: assignExtraContent(index),
       };
     });
-    if (newRules[rules.length - 1].isChecked) {
-      newRules.push(initialRules[newRules.length]);
-      console.log("push new rule: " + newRules);
-    }
     const rulesCopy = [...newRules];
     rulesCopy.sort(rulesSort);
     if (Array.isArray(rulesCopy)) {
@@ -113,7 +118,7 @@ const RuleBoxGrid = ({ password }) => {
         text={rule.text}
         number={rule.number}
         isChecked={hasPassedRuleNumber[rule.number - 1]}
-        // isVisible={rule.isVisible}
+        isVisible={rule.isVisible}
         extraContent={rule.extraContent}
       />
     );

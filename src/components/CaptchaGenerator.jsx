@@ -21,8 +21,8 @@ const CaptchaGenerator = ({ captchaHasChanged }) => {
 
   return (
     <div>
-      <button class="captcha-button" onClick={generateCaptcha}>
-        <span class="icon">&#x21BB;</span>
+      <button className="captcha-button" onClick={generateCaptcha}>
+        <span className="icon">&#x21BB;</span>
         New Captcha
       </button>
       <div className="captcha">{captchaText}</div>
