@@ -77,29 +77,23 @@ const RuleBoxGrid = ({ password }) => {
     }
   };
 
-  const pushNewRule = (newRules) => {
-    if (newRules[rules.length - 1].isChecked) {
-      newRules.push(initialRules[newRules.length]);
-      console.log("push new rule: " + newRules);
-    }
-  };
-
   useEffect(() => {
-    const newRules = rules.map((rule) => {
-      return {
-        isChecked: hasPassedRuleNumber[rule.number],
-        text: rule.text,
-        number: rule.number,
-        isVisible: rule.isVisible,
-        extraContent: assignExtraContent(rule.number),
-      };
-    });
-    const rulesCopy = [...newRules];
-    rulesCopy.sort(rulesSort);
-    if (Array.isArray(rulesCopy)) {
-      console.log(JSON.stringify(rulesCopy));
-      setRules(rulesCopy);
-    }
+    const newRules = rules
+      .sort((a, b) => a.number - b.number)
+      .map((rule, index) => {
+        return {
+          ...rule,
+          isChecked: hasPassedRuleNumber[index],
+          isVisible: rule.isVisible
+            ? true
+            : index > 0 &&
+              rules[index - 1].isVisible &&
+              hasPassedRuleNumber[index - 1],
+          extraContent: assignExtraContent(index),
+        };
+      });
+    console.log(newRules);
+    setRules(newRules);
   }, [password]);
 
   // Custom sorting function
@@ -111,13 +105,13 @@ const RuleBoxGrid = ({ password }) => {
 
   // console.log(rules);
 
-  return rules.map((rule) => {
+  return rules.sort(rulesSort).map((rule) => {
     return (
       <RuleBox
         key={rule.number - 1}
         text={rule.text}
         number={rule.number}
-        isChecked={hasPassedRuleNumber[rule.number - 1]}
+        isChecked={rule.isChecked}
         isVisible={rule.isVisible}
         extraContent={rule.extraContent}
       />
