@@ -80,17 +80,17 @@ const RuleBoxGrid = ({ password }) => {
   useEffect(() => {
     const newRules = rules
       .sort((a, b) => a.number - b.number)
-      .map((rule, index) => {
-        return {
+      .map((rule, index, array) => {
+        return (array[index] = {
           ...rule,
           isChecked: hasPassedRuleNumber[index],
           isVisible: rule.isVisible
             ? true
             : index > 0 &&
-              rules[index - 1].isVisible &&
+              array[index - 1].isVisible &&
               hasPassedRuleNumber[index - 1],
           extraContent: assignExtraContent(index),
-        };
+        });
       });
     console.log(newRules);
     setRules(newRules);
