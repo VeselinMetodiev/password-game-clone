@@ -1,57 +1,44 @@
-/* Style the CAPTCHA container */
+/* Styling for the outer container */
 .captcha {
-  font-size: 24px;
-  font-weight: bold;
-  background-color: #f0f0f0;
-  padding: 10px;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
-  user-select: none;
-}
-
-/* Style for the button */
-.captcha-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-}
-
-.captcha-button:hover {
-  background-color: #2980b9;
-}
-
-/* Style for the icon */
-.icon {
-  font-size: 20px;
-  margin-right: 5px; /* Spacing between the icon and text */
-}
-
-/* Center the CAPTCHA and button in the viewport */
-body {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin: 0;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  margin: 0 auto;
+  margin-bottom: 15px;
 }
 
-/* Style the title */
-h2 {
-  color: #333;
-  margin-bottom: 20px;
+/* Styling for the preview text */
+.preview {
+  font-size: 24px;
+  padding: 10px; /* Add padding for spacing */
+  border: 1px solid #333; /* Add a gray border */
+  background-color: #f5f5f5; /* Background color for the preview element */
+  color: #333; /* Dark gray text color */
 }
 
-/* Additional styling for the CAPTCHA container */
-.captcha {
-  width: 200px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+/* Styling for the refresh button */
+.captcha-refresh {
+  background-color: #333; /* Dark gray background color */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 4px;
+  padding: 17px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.captcha-refresh:hover {
+  background-color: #555; /* Slightly darker gray on hover */
+}
+
+/* Styling for the refresh button icon */
+.icon {
+  font-size: 20px;
 }
