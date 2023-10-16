@@ -10,6 +10,8 @@ import {
   containsOneSponsor,
   checkRomanNumeralsMultiplyTo35,
   checkHasCaptcha,
+  checkHasTodaysWordleAnswer,
+  hasTodaysWordleAnswer,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 import CaptchaGenerator from "./components/CaptchaGenerator";
@@ -37,6 +39,8 @@ const RuleBoxGrid = ({ password }) => {
   const ruleEight = containsOneSponsor(password);
   const ruleNine = checkRomanNumeralsMultiplyTo35(password);
   const ruleTen = checkHasCaptcha(password, captcha);
+  const ruleEleven = checkRuleEleven(password);
+
   const hasPassedRuleNumber = [
     ruleOne,
     ruleTwo,
@@ -48,9 +52,15 @@ const RuleBoxGrid = ({ password }) => {
     ruleEight,
     ruleNine,
     ruleTen,
+    ruleEleven,
   ];
 
-  const captchaHasChanged = (newCaptcha) => {
+  function checkRuleEleven(password) {
+    hasTodaysWordleAnswer(password);
+    return checkHasTodaysWordleAnswer;
+  }
+
+  const captchaHasChanged = async (newCaptcha) => {
     setCaptcha(newCaptcha);
   };
 
@@ -78,6 +88,7 @@ const RuleBoxGrid = ({ password }) => {
   };
 
   useEffect(() => {
+    console.log({ ruleEleven });
     const newRules = rules
       .sort((a, b) => a.number - b.number)
       .map((rule, index, array) => {
@@ -92,7 +103,6 @@ const RuleBoxGrid = ({ password }) => {
           extraContent: assignExtraContent(index),
         });
       });
-    console.log(newRules);
     setRules(newRules);
   }, [password]);
 
@@ -102,8 +112,6 @@ const RuleBoxGrid = ({ password }) => {
     if (a.isChecked === true && b.isChecked === false) return 1;
     return 0; // Objects are equal or both have the same isChecked value
   }
-
-  // console.log(rules);
 
   return rules.sort(rulesSort).map((rule) => {
     return (
