@@ -128,5 +128,7 @@ export const hasTodaysWordleAnswer = async (password) => {
   const solution = response.today.solution;
   if (solution.length > 0 && password.includes(solution)) {
     checkHasTodaysWordleAnswer = true;
+  } else {
+    checkHasTodaysWordleAnswer = false;
   }
 };
