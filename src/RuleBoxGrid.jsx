@@ -12,6 +12,7 @@ import {
   checkHasCaptcha,
   checkHasTodaysWordleAnswer,
   hasTodaysWordleAnswer,
+  containsTwoLetterElement,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 import CaptchaGenerator from "./components/CaptchaGenerator";
@@ -40,6 +41,7 @@ const RuleBoxGrid = ({ password }) => {
   const ruleNine = checkRomanNumeralsMultiplyTo35(password);
   const ruleTen = checkHasCaptcha(password, captcha);
   const ruleEleven = checkRuleEleven(password);
+  const ruleTwelve = containsTwoLetterElement(password);
 
   const hasPassedRuleNumber = [
     ruleOne,
@@ -53,6 +55,7 @@ const RuleBoxGrid = ({ password }) => {
     ruleNine,
     ruleTen,
     ruleEleven,
+    ruleTwelve,
   ];
 
   function checkRuleEleven(password) {
