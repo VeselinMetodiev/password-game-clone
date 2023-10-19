@@ -10,7 +10,6 @@ import {
   containsOneSponsor,
   checkRomanNumeralsMultiplyTo35,
   checkHasCaptcha,
-  checkHasTodaysWordleAnswer,
   hasTodaysWordleAnswer,
   containsTwoLetterElement,
 } from "./rulesUtil";
@@ -29,6 +28,7 @@ const initialRules = rulesText.map((rule, index) => {
 const RuleBoxGrid = ({ password }) => {
   const [captcha, setCaptcha] = useState("");
   const [rules, setRules] = useState(initialRules);
+  const [wordleSolution, setWordleSolution] = useState("");
 
   const ruleOne = password.length >= 5;
   const ruleTwo = containsNumbers(password);
@@ -40,7 +40,7 @@ const RuleBoxGrid = ({ password }) => {
   const ruleEight = containsOneSponsor(password);
   const ruleNine = checkRomanNumeralsMultiplyTo35(password);
   const ruleTen = checkHasCaptcha(password, captcha);
-  const ruleEleven = checkRuleEleven(password);
+  const ruleEleven = hasTodaysWordleAnswer(password, wordleSolution);
   const ruleTwelve = containsTwoLetterElement(password);
 
   const hasPassedRuleNumber = [
@@ -57,11 +57,6 @@ const RuleBoxGrid = ({ password }) => {
     ruleEleven,
     ruleTwelve,
   ];
-
-  function checkRuleEleven(password) {
-    hasTodaysWordleAnswer(password);
-    return checkHasTodaysWordleAnswer;
-  }
 
   const captchaHasChanged = async (newCaptcha) => {
     setCaptcha(newCaptcha);
@@ -90,8 +85,17 @@ const RuleBoxGrid = ({ password }) => {
     }
   };
 
+  // Fetch Today's wordle answer
   useEffect(() => {
-    console.log({ ruleEleven });
+    fetch(
+      `https://raw.githubusercontent.com/LeoDog896/todays-wordle/main/data.json`
+    )
+      .then((response) => response.json())
+      // 4. Setting *dogImage* to the image url that we received from the response above
+      .then((data) => setWordleSolution(data.today.solution));
+  }, []);
+
+  useEffect(() => {
     const newRules = rules
       .sort((a, b) => a.number - b.number)
       .map((rule, index, array) => {

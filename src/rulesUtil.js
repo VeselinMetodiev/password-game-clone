@@ -115,22 +115,11 @@ export function checkHasCaptcha(password, captcha) {
   return captcha.length > 0 && password.includes(captcha);
 }
 
-async function getWordle() {
-  const response = await fetch(
-    `https://raw.githubusercontent.com/LeoDog896/todays-wordle/main/data.json`
-  );
-  return await response.json();
-}
-
-export const hasTodaysWordleAnswer = async (password) => {
-  console.log(password);
-  const response = await getWordle();
-  const solution = response.today.solution;
-  if (solution.length > 0 && password.includes(solution)) {
-    checkHasTodaysWordleAnswer = true;
-  } else {
-    checkHasTodaysWordleAnswer = false;
+export const hasTodaysWordleAnswer = (password, wordleAnswer) => {
+  if (wordleAnswer.length > 0 && password.includes(wordleAnswer)) {
+    return true;
   }
+  return false;
 };
 
 export function containsTwoLetterElement(password) {
