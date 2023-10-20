@@ -128,3 +128,27 @@ export function containsTwoLetterElement(password) {
 
   return elementPattern.test(password);
 }
+
+export const containsMoonPhaseAsEmoji = (password, phase) => {
+  let emoji = "";
+  if (phase === "New") {
+    emoji = "🌑";
+  } else if (phase === "Waxing Crescent") {
+    emoji = "🌒";
+  } else if (phase === "First Quarter") {
+    emoji = "🌓";
+  } else if (phase === "Waxing Gibbous") {
+    emoji = "🌔";
+  } else if (phase === "Full") {
+    emoji = "🌕";
+  } else if (phase === "Waning Gibbous") {
+    emoji = "🌖";
+  } else if (phase === "Last Quarter") {
+    emoji = "🌗";
+  } else if (phase === "Waning Crescent") {
+    emoji = "🌘";
+  } else {
+    console.log("No corresponding emoji found.");
+  }
+  return emoji.length > 0 && password.includes(emoji);
+};

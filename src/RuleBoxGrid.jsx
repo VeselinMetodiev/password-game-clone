@@ -12,6 +12,7 @@ import {
   checkHasCaptcha,
   hasTodaysWordleAnswer,
   containsTwoLetterElement,
+  containsMoonPhaseAsEmoji,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 import CaptchaGenerator from "./components/CaptchaGenerator";
@@ -29,6 +30,7 @@ const RuleBoxGrid = ({ password }) => {
   const [captcha, setCaptcha] = useState("");
   const [rules, setRules] = useState(initialRules);
   const [wordleSolution, setWordleSolution] = useState("");
+  const [moonPhase, setMoonPhase] = useState("");
 
   const ruleOne = password.length >= 5;
   const ruleTwo = containsNumbers(password);
@@ -42,6 +44,7 @@ const RuleBoxGrid = ({ password }) => {
   const ruleTen = checkHasCaptcha(password, captcha);
   const ruleEleven = hasTodaysWordleAnswer(password, wordleSolution);
   const ruleTwelve = containsTwoLetterElement(password);
+  const ruleThirteen = containsMoonPhaseAsEmoji(password, moonPhase);
 
   const hasPassedRuleNumber = [
     ruleOne,
@@ -56,6 +59,7 @@ const RuleBoxGrid = ({ password }) => {
     ruleTen,
     ruleEleven,
     ruleTwelve,
+    ruleThirteen,
   ];
 
   const captchaHasChanged = async (newCaptcha) => {
@@ -93,6 +97,19 @@ const RuleBoxGrid = ({ password }) => {
       .then((response) => response.json())
       // 4. Setting *dogImage* to the image url that we received from the response above
       .then((data) => setWordleSolution(data.today.solution));
+
+    const date = new Date();
+    const unixTimestamp = Math.floor(date.getTime() / 1000);
+    console.log(unixTimestamp);
+    // Get the Current moon phase
+    var url = `http://api.farmsense.net/v1/moonphases/?d=${unixTimestamp}`;
+    console.log(url);
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setMoonPhase(data[0].Phase);
+      });
   }, []);
 
   useEffect(() => {
