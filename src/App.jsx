@@ -2,6 +2,7 @@ import "./App.css";
 import PasswordInput from "./PasswordInput.jsx";
 import RuleBoxGrid from "./RuleBoxGrid.jsx";
 import { useEffect, useState } from "react";
+import Map from "./maps/Map";
 
 function App() {
   const [password, setPassword] = useState("");
@@ -17,6 +18,7 @@ function App() {
         <PasswordInput passwordHasChanged={handlePasswordChanged} />
       </div>
       <RuleBoxGrid password={password} />
+      {/* <Map /> */}
     </>
   );
 }
