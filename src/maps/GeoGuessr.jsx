@@ -22,7 +22,10 @@ const GeoGuessr = ({ chosenCountry }) => {
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDq2Xb1Ukoowq-vMI34EUxXmFx1TJsPpLc&callback=initialize&libraries=&v=weekly`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${
+      import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+    }&callback=initialize&libraries=&v=weekly`;
+    console.log(script.src);
     script.async = true;
     document.body.appendChild(script);
     window.initialize = initialize;
