@@ -152,3 +152,7 @@ export const containsMoonPhaseAsEmoji = (password, phase) => {
   }
   return emoji.length > 0 && password.includes(emoji);
 };
+
+export const containsCountry = (password, country) => {
+  return country.length > 0 && password.includes(country);
+};

@@ -13,9 +13,11 @@ import {
   hasTodaysWordleAnswer,
   containsTwoLetterElement,
   containsMoonPhaseAsEmoji,
+  containsCountry,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 import CaptchaGenerator from "./components/CaptchaGenerator";
+import GeoGuessr from "./maps/GeoGuessr.jsx";
 
 const initialRules = rulesText.map((rule, index) => {
   return {
@@ -31,6 +33,7 @@ const RuleBoxGrid = ({ password }) => {
   const [rules, setRules] = useState(initialRules);
   const [wordleSolution, setWordleSolution] = useState("");
   const [moonPhase, setMoonPhase] = useState("");
+  const [country, setCountry] = useState("");
 
   const ruleOne = password.length >= 5;
   const ruleTwo = containsNumbers(password);
@@ -45,6 +48,7 @@ const RuleBoxGrid = ({ password }) => {
   const ruleEleven = hasTodaysWordleAnswer(password, wordleSolution);
   const ruleTwelve = containsTwoLetterElement(password);
   const ruleThirteen = containsMoonPhaseAsEmoji(password, moonPhase);
+  const ruleFourteen = containsCountry(password, country);
 
   const hasPassedRuleNumber = [
     ruleOne,
@@ -60,10 +64,16 @@ const RuleBoxGrid = ({ password }) => {
     ruleEleven,
     ruleTwelve,
     ruleThirteen,
+    ruleFourteen,
   ];
 
   const captchaHasChanged = async (newCaptcha) => {
     setCaptcha(newCaptcha);
+  };
+
+  const getCountry = (chosenCountry) => {
+    setCountry(chosenCountry);
+    console.log(chosenCountry);
   };
 
   const assignExtraContent = (index) => {
@@ -84,6 +94,8 @@ const RuleBoxGrid = ({ password }) => {
             <CaptchaGenerator captchaHasChanged={captchaHasChanged} />
           </>
         );
+      case 13:
+        return <GeoGuessr chosenCountry={getCountry} />;
       default:
         return null; // Return null or an empty React fragment for other cases
     }
