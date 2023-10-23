@@ -14,6 +14,7 @@ import {
   containsTwoLetterElement,
   containsMoonPhaseAsEmoji,
   containsCountry,
+  containsLeapYear,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 import CaptchaGenerator from "./components/CaptchaGenerator";
@@ -49,6 +50,7 @@ const RuleBoxGrid = ({ password }) => {
   const ruleTwelve = containsTwoLetterElement(password);
   const ruleThirteen = containsMoonPhaseAsEmoji(password, moonPhase);
   const ruleFourteen = containsCountry(password, country);
+  const ruleFifteen = containsLeapYear(password);
 
   const hasPassedRuleNumber = [
     ruleOne,
@@ -65,6 +67,7 @@ const RuleBoxGrid = ({ password }) => {
     ruleTwelve,
     ruleThirteen,
     ruleFourteen,
+    ruleFifteen,
   ];
 
   const captchaHasChanged = async (newCaptcha) => {

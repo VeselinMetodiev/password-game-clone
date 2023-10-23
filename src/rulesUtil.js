@@ -156,3 +156,31 @@ export const containsMoonPhaseAsEmoji = (password, phase) => {
 export const containsCountry = (password, country) => {
   return country.length > 0 && password.includes(country);
 };
+
+export const containsLeapYear = (password) => {
+  let currentNumber = "";
+  let year = "";
+  for (let i = 0; i < password.length; i++) {
+    if (!isNaN(password[i])) {
+      currentNumber += password[i];
+      console.log({ currentNumber });
+    } else {
+      if (currentNumber) {
+        year = parseInt(currentNumber);
+        if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+          console.log("Leap Year found: " + year);
+          return true;
+        }
+        currentNumber = "";
+      }
+    }
+    if (!isNaN(currentNumber)) {
+      year = parseInt(currentNumber);
+      if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+        console.log("Leap Year found: " + year);
+        return true;
+      }
+    }
+  }
+  return false;
+};
