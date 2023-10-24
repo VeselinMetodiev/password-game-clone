@@ -19,6 +19,7 @@ import {
 import { rulesText } from "./rules.js";
 import CaptchaGenerator from "./components/CaptchaGenerator";
 import GeoGuessr from "./maps/GeoGuessr.jsx";
+import ChessBoardComponent from "./components/ChessBoardComponent.jsx";
 
 const initialRules = rulesText.map((rule, index) => {
   return {
@@ -99,6 +100,7 @@ const RuleBoxGrid = ({ password }) => {
         );
       case 13:
         return <GeoGuessr chosenCountry={getCountry} />;
+
       default:
         return null; // Return null or an empty React fragment for other cases
     }
