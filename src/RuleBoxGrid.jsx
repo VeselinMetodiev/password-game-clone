@@ -36,6 +36,7 @@ const RuleBoxGrid = ({ password }) => {
   const [wordleSolution, setWordleSolution] = useState("");
   const [moonPhase, setMoonPhase] = useState("");
   const [country, setCountry] = useState("");
+  const [chessTactics, setChessTactics] = useState([]);
 
   const ruleOne = password.length >= 5;
   const ruleTwo = containsNumbers(password);
@@ -127,6 +128,26 @@ const RuleBoxGrid = ({ password }) => {
         console.log(data);
         setMoonPhase(data[0].Phase);
       });
+    const urlChess =
+      "https://chess-puzzles.p.rapidapi.com/?themes=%5B%22middlegame%22%2C%22advantage%22%5D&rating=1500&themesType=ALL&playerMoves=2&count=100";
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "bc01cb8075msh9de93570953b665p1b51c8jsna64a571e426e",
+        "X-RapidAPI-Host": "chess-puzzles.p.rapidapi.com",
+      },
+    };
+
+    // try {
+    //   fetch(urlChess, options)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       console.log(data);
+    //       setChessTactics(data);
+    //     });
+    // } catch (error) {
+    //   console.error(error);
+    // }
   }, []);
 
   useEffect(() => {
