@@ -163,7 +163,6 @@ export const containsLeapYear = (password) => {
   for (let i = 0; i < password.length; i++) {
     if (!isNaN(password[i])) {
       currentNumber += password[i];
-      console.log({ currentNumber });
     } else {
       if (currentNumber) {
         year = parseInt(currentNumber);
@@ -182,5 +181,12 @@ export const containsLeapYear = (password) => {
       }
     }
   }
+  return false;
+};
+
+export const containsBestChessMove = (password, chessTactic) => {
+  console.log({ chessTactic });
+  if (chessTactic && chessTactic.moves)
+    return password.includes(chessTactic.moves.split()[2]);
   return false;
 };

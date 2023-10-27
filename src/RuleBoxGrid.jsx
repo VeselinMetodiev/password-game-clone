@@ -15,11 +15,13 @@ import {
   containsMoonPhaseAsEmoji,
   containsCountry,
   containsLeapYear,
+  containsBestChessMove,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 import CaptchaGenerator from "./components/CaptchaGenerator";
 import GeoGuessr from "./maps/GeoGuessr.jsx";
 import ChessBoardComponent from "./components/ChessBoardComponent.jsx";
+import { chessTactics } from "./chess/chessTactics";
 
 const initialRules = rulesText.map((rule, index) => {
   return {
@@ -36,7 +38,7 @@ const RuleBoxGrid = ({ password }) => {
   const [wordleSolution, setWordleSolution] = useState("");
   const [moonPhase, setMoonPhase] = useState("");
   const [country, setCountry] = useState("");
-  const [chessTactics, setChessTactics] = useState([]);
+  const [chessTactic, setChessTactic] = useState({});
 
   const ruleOne = password.length >= 5;
   const ruleTwo = containsNumbers(password);
@@ -53,6 +55,7 @@ const RuleBoxGrid = ({ password }) => {
   const ruleThirteen = containsMoonPhaseAsEmoji(password, moonPhase);
   const ruleFourteen = containsCountry(password, country);
   const ruleFifteen = containsLeapYear(password);
+  const ruleSixteen = containsBestChessMove(password, chessTactic);
 
   const hasPassedRuleNumber = [
     ruleOne,
@@ -70,6 +73,7 @@ const RuleBoxGrid = ({ password }) => {
     ruleThirteen,
     ruleFourteen,
     ruleFifteen,
+    ruleSixteen,
   ];
 
   const captchaHasChanged = async (newCaptcha) => {
@@ -101,6 +105,8 @@ const RuleBoxGrid = ({ password }) => {
         );
       case 13:
         return <GeoGuessr chosenCountry={getCountry} />;
+      case 15:
+        return <ChessBoardComponent position={chessTactic.fen} />;
 
       default:
         return null; // Return null or an empty React fragment for other cases
@@ -109,6 +115,13 @@ const RuleBoxGrid = ({ password }) => {
 
   // Fetch Today's wordle answer
   useEffect(() => {
+    const randomNumber = Math.floor(
+      Math.random() * chessTactics.puzzles.length
+    );
+    console.log(
+      randomNumber + ": " + JSON.stringify(chessTactics.puzzles[randomNumber])
+    );
+    setChessTactic(chessTactics.puzzles[randomNumber]);
     fetch(
       `https://raw.githubusercontent.com/LeoDog896/todays-wordle/main/data.json`
     )
@@ -131,6 +144,7 @@ const RuleBoxGrid = ({ password }) => {
   }, []);
 
   useEffect(() => {
+    console.log(chessTactic);
     const newRules = rules
       .sort((a, b) => a.number - b.number)
       .map((rule, index, array) => {
