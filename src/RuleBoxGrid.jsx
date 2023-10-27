@@ -133,7 +133,7 @@ const RuleBoxGrid = ({ password }) => {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "bc01cb8075msh9de93570953b665p1b51c8jsna64a571e426e",
+        "X-RapidAPI-Key": import.meta.env.VITE_CHESS_RAPID_KEY,
         "X-RapidAPI-Host": "chess-puzzles.p.rapidapi.com",
       },
     };
