@@ -185,8 +185,10 @@ export const containsLeapYear = (password) => {
 };
 
 export const containsBestChessMove = (password, chessTactic) => {
-  console.log({ chessTactic });
-  if (chessTactic && chessTactic.moves)
-    return password.includes(chessTactic.moves.split()[2]);
+  if (chessTactic && chessTactic.moves) {
+    const move = chessTactic.moves.split(" ");
+    console.log(move[1]);
+    return password.includes(move[1]);
+  }
   return false;
 };
