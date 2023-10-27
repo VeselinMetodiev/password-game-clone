@@ -128,26 +128,6 @@ const RuleBoxGrid = ({ password }) => {
         console.log(data);
         setMoonPhase(data[0].Phase);
       });
-    const urlChess =
-      "https://chess-puzzles.p.rapidapi.com/?themes=%5B%22middlegame%22%2C%22advantage%22%5D&rating=1500&themesType=ALL&playerMoves=2&count=100";
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": import.meta.env.VITE_CHESS_RAPID_KEY,
-        "X-RapidAPI-Host": "chess-puzzles.p.rapidapi.com",
-      },
-    };
-
-    // try {
-    //   fetch(urlChess, options)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       console.log(data);
-    //       setChessTactics(data);
-    //     });
-    // } catch (error) {
-    //   console.error(error);
-    // }
   }, []);
 
   useEffect(() => {
