@@ -20,17 +20,15 @@ const RuleBox = ({ text, isChecked, number, isVisible, extraContent }) => {
   }, [isVisible]);
 
   return visible ? (
-    <div className={getColorClass()}>
-      <span className="top">
-        {isChecked ? (
-          <FaCheck className="icon" />
-        ) : (
-          <FaTimesCircle className="icon" />
-        )}
-        Rule {number}
-      </span>
-      <p className="text">{text}</p>
-      {extraContent && <div className="extra-content">{extraContent}</div>}
+    <div className={`rulebox ${isChecked ? "rule-correct" : "rule-err"}`}>
+      <div className={`rulebox-top ${isChecked ? "rule-correct" : "rule-err"}`}>
+        {isChecked ? "\u{2705}" : "\u{274C}"} Rule {number}
+      </div>
+      <div className="rulebox-desc">
+        {text}
+        {/* {renderItem===undefined? null: renderItem(propsToChild)} */}
+        {extraContent && <div className="extra-content">{extraContent}</div>}
+      </div>
     </div>
   ) : null;
 };

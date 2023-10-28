@@ -1,62 +1,3 @@
-.stunning-box {
-  width: 500px; /* Set the desired width */
-  min-height: 90px; /* Set the desired minimum height */
-  height: auto; /* For larger content */
-  margin: 20px;
-  border-radius: 15px; /* Add rounded corners */
-  border: 1px solid;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  color: white; /* Text color */
-  font-size: 18px; /* Text size */
-  font-weight: bold; /* Text weight */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  transition: transform 0.2s ease-in-out; /* Add a hover effect */
-  transition: background-color 0.7s ease-in-out;
-}
-
-.stunning-box.blue {
-  background-color: #3498db; /* Set the background color */
-  border-color: blue;
-}
-
-.stunning-box.blue .top {
-  background-color: #aef3ae; /* Set the background color */
-}
-
-.stunning-box.red {
-  background-color: #ffc7c7;
-  border-color: red;
-}
-
-.stunning-box:hover {
-  transform: scale(1.05); /* Scale up on hover for a stunning effect */
-}
-
-.top {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40%;
-  background-color: #e74c3c; /* Background color of the top span */
-  border-top-left-radius: 10px; /* Match the top-left border radius of the rectangle */
-  border-top-right-radius: 10px; /* Match the top-right border radius of the rectangle */
-  text-align: left;
-  transition: background-color 0.7s ease-in-out;
-  display: flex;
-  align-items: center;
-}
-
-.icon {
-  font-size: 24px; /* Adjust the size of the icon as needed */
-  margin-right: 8px; /* Add spacing between the icon and text */
-  margin-left: 8px;
-}
-
 .logo-container {
   display: flex;
   align-items: center;
@@ -66,4 +7,50 @@
 .logo-container img {
   max-width: 100px;
   margin: 10px;
+}
+
+.rulebox {
+  border-radius: 15px;
+  text-align: left;
+  font-size: 18px;
+  margin: 22px auto;
+  overflow: hidden;
+
+  /* background-color: #ffdce0; */
+  background-color: #ffeced;
+  border: 2px solid #ce273d;
+  box-shadow: 8px 8px 1px 0px rgba(222, 184, 189, 0.4);
+  transition: transform 0.2s ease-in-out; /* Add a hover effect */
+  transition: background-color 0.5s;
+}
+.rulebox:hover {
+  box-shadow: 10px 10px 1px 0px rgba(222, 184, 189, 0.5);
+  transform: scale(1.05); /* Scale up on hover for a stunning effect */
+}
+.rulebox-top {
+  padding: 5px 16px 8px 8px;
+
+  background-color: #fabac4;
+  color: #a11a2c;
+  font-weight: bold;
+  font-size: 15px;
+  transition: transform 0.2s ease-in-out; /* Add a hover effect */
+  transition: background-color 0.5s;
+}
+
+.rulebox-desc {
+  padding: 11px 17px 15px 11px;
+}
+
+.rulebox.rule-correct {
+  background-color: #deffce;
+  border: 2px solid #52a22a;
+  box-shadow: 8px 8px 1px 0px rgba(167, 187, 157, 0.4);
+}
+.rulebox.rule-correct:hover {
+  box-shadow: 10px 10px 1px 0px rgba(167, 187, 157, 0.5);
+}
+.rulebox-top.rule-correct {
+  background-color: #b4ea99;
+  color: #32621a;
 }
