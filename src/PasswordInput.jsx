@@ -19,6 +19,7 @@ const PasswordInput = ({ passwordHasChanged }) => {
         placeholder="Enter your password..."
         ref={textAreaRef}
         rows={1}
+        autoFocus
       />
     </div>
   );
