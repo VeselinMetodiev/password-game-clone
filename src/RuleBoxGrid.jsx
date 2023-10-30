@@ -16,6 +16,8 @@ import {
   containsCountry,
   containsLeapYear,
   containsBestChessMove,
+  checkHasPaulsEgg,
+  checkAtomicSum,
 } from "./rulesUtil";
 import { rulesText } from "./rules.js";
 import CaptchaGenerator from "./components/CaptchaGenerator";
@@ -56,6 +58,8 @@ const RuleBoxGrid = ({ password }) => {
   const ruleFourteen = containsCountry(password, country);
   const ruleFifteen = containsLeapYear(password);
   const ruleSixteen = containsBestChessMove(password, chessTactic);
+  const ruleSeventeen = checkHasPaulsEgg(password);
+  const ruleEighteen = checkAtomicSum(password);
 
   const hasPassedRuleNumber = [
     ruleOne,
@@ -74,6 +78,8 @@ const RuleBoxGrid = ({ password }) => {
     ruleFourteen,
     ruleFifteen,
     ruleSixteen,
+    ruleSeventeen,
+    ruleEighteen,
   ];
 
   const captchaHasChanged = async (newCaptcha) => {
